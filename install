@@ -2,4 +2,4 @@
 
 cd $(dirname $0)
 
-cargo install --path . -Zbuild-std=std,panic_abort -Zbuild-std-features=panic_immediate_abort
+RUSTFLAGS=-Ctarget-cpu=native cargo +nightly install --path . -Zbuild-std=std,panic_abort -Zbuild-std-features=panic_immediate_abort
