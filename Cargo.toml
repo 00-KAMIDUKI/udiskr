@@ -1,4 +1,4 @@
-cargo-features = ["profile-rustflags"]
+# cargo-features = ["profile-rustflags"]
 
 [package]
 name = "udiskr"
@@ -15,4 +15,4 @@ zbus = { version = "5.7.0", default-features = false, features = ["async-io"] }
 [profile.release]
 lto = true
 panic = "abort"
-rustflags = ["-Ctarget-cpu=native"]
+# rustflags = ["-Ctarget-cpu=native"]

@@ -1,7 +1,9 @@
-#![feature(let_chains)]
-use std::{cell::RefCell, collections::HashMap, hash::BuildHasherDefault, process::Command};
+#![feature(let_chains, future_join)]
+use std::{
+    cell::RefCell, collections::HashMap, future::join, hash::BuildHasherDefault, process::Command,
+};
 
-use futures::{StreamExt, executor::block_on, future::join3};
+use futures::{StreamExt, executor::block_on};
 use rustc_hash::FxHasher;
 use zbus::{
     Connection, proxy,
@@ -26,7 +28,9 @@ async fn run() {
         &system,
         "org.freedesktop.UDisks2",
         "/org/freedesktop/UDisks2/Manager",
-    ).await.unwrap();
+    )
+    .await
+    .unwrap();
     peer.ping().await.unwrap();
     let manager = ManagerProxy::new(&system).await.unwrap();
     let mounted_devices: RefCell<Vec<Entry>> = Default::default();
@@ -53,7 +57,7 @@ async fn run() {
         }
     };
 
-    join3(
+    join!(
         manager
             .receive_interfaces_added()
             .await
