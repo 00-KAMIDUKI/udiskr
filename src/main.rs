@@ -1,4 +1,4 @@
-#![feature(let_chains, future_join)]
+#![feature(future_join)]
 use std::{
     cell::RefCell, collections::HashMap, future::join, hash::BuildHasherDefault, process::Command,
 };
